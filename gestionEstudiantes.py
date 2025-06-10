@@ -67,9 +67,6 @@ class GestorEstudiantesGUI:
         self.btn_eliminar = tk.Button(btn_frame, text="Eliminar Estudiante", command=self.eliminar_estudiante, bg="#F44336", fg="white", font=("Arial", 12), width=22, height=2, relief="groove")
         self.btn_eliminar.grid(row=2, column=1, padx=10, pady=5)
 
-        self.btn_ficha = tk.Button(root, text="Acerca de", command=self.mostrar_ficha_tecnica, bg="#607D8B", fg="white", font=("Arial", 12), width=30, height=2, relief="groove")
-        self.btn_ficha.pack(pady=10)
-
         # Sección "Acerca de" como texto fijo en la interfaz debajo de los botones
         self.label_acerca = tk.Label(root, text="Sistema de Gestión de Estudiantes\n"
                                         "Equipo: EvalTrack\n"
@@ -282,15 +279,6 @@ class GestorEstudiantesGUI:
                 messagebox.showerror("Error", "Estudiante no encontrado.")
 
         tk.Button(ventana, text="Eliminar", command=eliminar, bg="#F44336", fg="white", font=("Arial", 11), width=12).pack(pady=10)
-
-    def mostrar_ficha_tecnica(self):
-        messagebox.showinfo(
-            "Acerca de",
-            "Sistema de Gestión de Estudiantes\n"
-            "Equipo: EvalTrack\n"
-            "Desarrolladores: Daniel Gamboa, Maria Rincon, Sebastian Camejo, Luis Valencia\n"
-            "Eslogan: 'Educación con Tecnología'"
-        )
 
 # Ejecutar la aplicación gráfica
 if __name__ == "__main__":

@@ -1,3 +1,6 @@
+import tkinter as tk
+from tkinter import messagebox, simpledialog
+
 # Clase que representa a un estudiante con su ID, nombre y lista de calificaciones
 class Estudiante:
     def __init__(self, id, nombre):
@@ -29,117 +32,268 @@ class Estudiante:
 
 
 # Clase que gestiona la lista de estudiantes y las operaciones sobre ellos
-class GestorEstudiantes:
-    def __init__(self):
-        # Constructor: inicializa la lista vacía de estudiantes
+class GestorEstudiantesGUI:
+    def __init__(self, root):
         self.estudiantes = []
+        self.root = root
+        self.root.title("Sistema de Gestión de Estudiantes")
+        self.root.geometry("540x520")
+        self.root.configure(bg="#e3eafc")
+
+        # Encabezado visual
+        header_frame = tk.Frame(root, bg="#3f51b5", height=60)
+        header_frame.pack(fill="x")
+        tk.Label(header_frame, text="Gestión de Estudiantes", font=("Arial", 20, "bold"), bg="#3f51b5", fg="white").pack(pady=10)
+
+        # Frame para los botones
+        btn_frame = tk.Frame(root, bg="#e3eafc")
+        btn_frame.pack(pady=20)
+
+        self.btn_agregar = tk.Button(btn_frame, text="Agregar Estudiante", command=self.agregar_estudiante, bg="#4CAF50", fg="white", font=("Arial", 12), width=22, height=2, relief="groove")
+        self.btn_agregar.grid(row=0, column=0, padx=10, pady=5)
+
+        self.btn_ingresar_calificaciones = tk.Button(btn_frame, text="Ingresar Calificaciones", command=self.ingresar_calificaciones, bg="#FF9800", fg="white", font=("Arial", 12), width=22, height=2, relief="groove")
+        self.btn_ingresar_calificaciones.grid(row=0, column=1, padx=10, pady=5)
+
+        self.btn_actualizar = tk.Button(btn_frame, text="Actualizar Calificaciones", command=self.actualizar_calificaciones, bg="#009688", fg="white", font=("Arial", 12), width=22, height=2, relief="groove")
+        self.btn_actualizar.grid(row=1, column=0, padx=10, pady=5)
+
+        self.btn_consultar = tk.Button(btn_frame, text="Consultar Estudiantes", command=self.consultar_estudiantes, bg="#2196F3", fg="white", font=("Arial", 12), width=22, height=2, relief="groove")
+        self.btn_consultar.grid(row=1, column=1, padx=10, pady=5)
+
+        self.btn_buscar = tk.Button(btn_frame, text="Buscar Estudiante por ID", command=self.consultar_estudiante_por_id, bg="#9C27B0", fg="white", font=("Arial", 12), width=22, height=2, relief="groove")
+        self.btn_buscar.grid(row=2, column=0, padx=10, pady=5)
+
+        self.btn_eliminar = tk.Button(btn_frame, text="Eliminar Estudiante", command=self.eliminar_estudiante, bg="#F44336", fg="white", font=("Arial", 12), width=22, height=2, relief="groove")
+        self.btn_eliminar.grid(row=2, column=1, padx=10, pady=5)
+
+        self.btn_ficha = tk.Button(root, text="Acerca de", command=self.mostrar_ficha_tecnica, bg="#607D8B", fg="white", font=("Arial", 12), width=30, height=2, relief="groove")
+        self.btn_ficha.pack(pady=10)
+
+        # Sección "Acerca de" como texto fijo en la interfaz debajo de los botones
+        self.label_acerca = tk.Label(root, text="Sistema de Gestión de Estudiantes\n"
+                                        "Equipo: EvalTrack\n"
+                                        "Desarrolladores: Daniel Gamboa, Maria Rincon, Sebastian Camejo, Luis Valencia\n"
+                                        "Eslogan: 'Educación con Tecnología'", 
+                                        font=("Arial", 10, "italic"), bg="#e3eafc", fg="gray")
+        self.label_acerca.pack(side="bottom", pady=10)
 
     def agregar_estudiante(self):
-        # Solicita datos por consola y agrega un nuevo estudiante a la lista
-        id = input("Ingrese el ID del estudiante: ")
-        nombre = input("Ingrese el nombre del estudiante: ")
-        self.estudiantes.append(Estudiante(id, nombre))
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Agregar Estudiante")
+        ventana.geometry("340x220")
+        ventana.configure(bg="#f5f5f5")
+
+        tk.Label(ventana, text="ID:", font=("Arial", 11), bg="#f5f5f5").pack(pady=(15,2))
+        id_entry = tk.Entry(ventana, font=("Arial", 11))
+        id_entry.pack(pady=2)
+
+        tk.Label(ventana, text="Nombre:", font=("Arial", 11), bg="#f5f5f5").pack(pady=2)
+        nombre_entry = tk.Entry(ventana, font=("Arial", 11))
+        nombre_entry.pack(pady=2)
+
+        def guardar():
+            id = id_entry.get()
+            nombre = nombre_entry.get()
+            if id and nombre:
+                self.estudiantes.append(Estudiante(id, nombre))
+                messagebox.showinfo("Éxito", "Estudiante agregado correctamente.")
+                ventana.destroy()
+            else:
+                messagebox.showerror("Error", "Debe ingresar todos los datos.")
+
+        tk.Button(ventana, text="Guardar", command=guardar, bg="#4CAF50", fg="white", font=("Arial", 11), width=12).pack(pady=10)
 
     def ingresar_calificaciones(self):
-        # Permite ingresar varias calificaciones a un estudiante existente
-        id = input("Ingrese el ID del estudiante: ")
-        estudiante = next((e for e in self.estudiantes if e.id == id), None)
-        if estudiante:
-            while True:
-                try:
-                    calificacion = float(input("Ingrese la calificación (0-50) o -1 para salir: "))
-                    if calificacion == -1:
-                        break
-                    estudiante.agregar_calificacion(calificacion)
-                except ValueError:
-                    print("Entrada inválida, ingrese un número.")
-        else:
-            print("Estudiante no encontrado.")
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Ingresar Calificaciones")
+        ventana.geometry("360x260")
+        ventana.configure(bg="#f5f5f5")
+
+        tk.Label(ventana, text="ID del Estudiante:", font=("Arial", 11), bg="#f5f5f5").pack(pady=(15,2))
+        id_entry = tk.Entry(ventana, font=("Arial", 11))
+        id_entry.pack(pady=2)
+
+        tk.Label(ventana, text="Cantidad de calificaciones:", font=("Arial", 11), bg="#f5f5f5").pack(pady=2)
+        cantidad_entry = tk.Entry(ventana, font=("Arial", 11))
+        cantidad_entry.pack(pady=2)
+
+        calificacion_entries = []
+        calificaciones_frame = tk.Frame(ventana, bg="#f5f5f5")
+        calificaciones_frame.pack(pady=5)
+
+        def mostrar_campos():
+            for widget in calificaciones_frame.winfo_children():
+                widget.destroy()
+            calificacion_entries.clear()
+            try:
+                cantidad = int(cantidad_entry.get())
+                if cantidad <= 0:
+                    raise ValueError
+            except ValueError:
+                messagebox.showerror("Error", "Ingrese una cantidad válida.")
+                return
+            for i in range(cantidad):
+                tk.Label(calificaciones_frame, text=f"Calificación {i+1} (0-50):", font=("Arial", 10), bg="#f5f5f5").pack()
+                entry = tk.Entry(calificaciones_frame, font=("Arial", 10))
+                entry.pack()
+                calificacion_entries.append(entry)
+
+        def guardar():
+            id = id_entry.get()
+            estudiante = next((e for e in self.estudiantes if e.id == id), None)
+            if not estudiante:
+                messagebox.showerror("Error", "Estudiante no encontrado.")
+                return
+            try:
+                calificaciones = [float(e.get()) for e in calificacion_entries]
+            except ValueError:
+                messagebox.showerror("Error", "Ingrese solo números válidos.")
+                return
+            for cal in calificaciones:
+                estudiante.agregar_calificacion(cal)
+            messagebox.showinfo("Éxito", "Calificaciones agregadas correctamente.")
+            ventana.destroy()
+
+        tk.Button(ventana, text="Aceptar cantidad", command=mostrar_campos, bg="#2196F3", fg="white", font=("Arial", 10), width=16).pack(pady=5)
+        tk.Button(ventana, text="Guardar", command=guardar, bg="#FF9800", fg="white", font=("Arial", 11), width=12).pack(pady=10)
 
     def actualizar_calificaciones(self):
-        # Permite modificar una calificación específica de un estudiante
-        id = input("Ingrese el ID del estudiante: ")
-        estudiante = next((e for e in self.estudiantes if e.id == id), None)
-        if estudiante:
-            if estudiante.calificaciones:
-                print(f"Calificaciones actuales de {estudiante.nombre}: {estudiante.calificaciones}")
-                try:
-                    indice = int(input("Ingrese el índice de la calificación que desea modificar (empezando desde 0): "))
-                    nueva_calificacion = float(input("Ingrese la nueva calificación (0-50): "))
-                    estudiante.actualizar_calificacion(indice, nueva_calificacion)
-                except ValueError:
-                    print("Entrada inválida, ingrese un número válido.")
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Actualizar Calificaciones")
+        ventana.geometry("400x300")
+        ventana.configure(bg="#f5f5f5")
+
+        tk.Label(ventana, text="ID del Estudiante:", font=("Arial", 11), bg="#f5f5f5").pack(pady=(15,2))
+        id_entry = tk.Entry(ventana, font=("Arial", 11))
+        id_entry.pack(pady=2)
+
+        result_label = tk.Label(ventana, text="", font=("Arial", 10), bg="#f5f5f5")
+        result_label.pack(pady=5)
+
+        calificacion_entries = []
+        calificaciones_frame = tk.Frame(ventana, bg="#f5f5f5")
+        calificaciones_frame.pack(pady=5)
+
+        def buscar():
+            for widget in calificaciones_frame.winfo_children():
+                widget.destroy()
+            calificacion_entries.clear()
+            id = id_entry.get()
+            estudiante = next((e for e in self.estudiantes if e.id == id), None)
+            if estudiante and estudiante.calificaciones:
+                result_label.config(text=f"Calificaciones actuales: {estudiante.calificaciones}", fg="#333")
+                for i, cal in enumerate(estudiante.calificaciones):
+                    tk.Label(calificaciones_frame, text=f"Índice {i}:", font=("Arial", 10), bg="#f5f5f5").pack()
+                    entry = tk.Entry(calificaciones_frame, font=("Arial", 10))
+                    entry.insert(0, str(cal))
+                    entry.pack()
+                    calificacion_entries.append(entry)
+            elif estudiante:
+                result_label.config(text="El estudiante no tiene calificaciones registradas.", fg="red")
             else:
-                print("El estudiante no tiene calificaciones registradas.")
-        else:
-            print("Estudiante no encontrado.")
+                result_label.config(text="Estudiante no encontrado.", fg="red")
+
+        def guardar():
+            id = id_entry.get()
+            estudiante = next((e for e in self.estudiantes if e.id == id), None)
+            if not estudiante:
+                messagebox.showerror("Error", "Estudiante no encontrado.")
+                return
+            try:
+                nuevas = [float(e.get()) for e in calificacion_entries]
+            except ValueError:
+                messagebox.showerror("Error", "Ingrese solo números válidos.")
+                return
+            for i, nueva in enumerate(nuevas):
+                estudiante.actualizar_calificacion(i, nueva)
+            messagebox.showinfo("Éxito", "Calificaciones actualizadas correctamente.")
+            ventana.destroy()
+
+        tk.Button(ventana, text="Buscar", command=buscar, bg="#009688", fg="white", font=("Arial", 10), width=16).pack(pady=5)
+        tk.Button(ventana, text="Guardar", command=guardar, bg="#009688", fg="white", font=("Arial", 11), width=12).pack(pady=10)
 
     def consultar_estudiantes(self):
-        # Muestra todos los estudiantes y su promedio de calificaciones
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Lista de Estudiantes")
+        ventana.geometry("400x300")
+        ventana.configure(bg="#f5f5f5")
+
+        frame = tk.Frame(ventana, bg="#f5f5f5")
+        frame.pack(fill="both", expand=True, padx=10, pady=10)
+        canvas = tk.Canvas(frame, bg="#f5f5f5", highlightthickness=0)
+        scrollbar = tk.Scrollbar(frame, orient="vertical", command=canvas.yview)
+        scroll_frame = tk.Frame(canvas, bg="#f5f5f5")
+
+        scroll_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(
+                scrollregion=canvas.bbox("all")
+            )
+        )
+        canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
         for estudiante in self.estudiantes:
-            print(f"ID: {estudiante.id}, Nombre: {estudiante.nombre}, Promedio: {estudiante.calcular_promedio():.2f}")
+            tk.Label(scroll_frame, text=f"ID: {estudiante.id} | Nombre: {estudiante.nombre} | Promedio: {estudiante.calcular_promedio():.2f}", font=("Arial", 11), bg="#f5f5f5").pack(anchor="w", pady=2)
 
     def consultar_estudiante_por_id(self):
-        # Busca y muestra la información de un estudiante por su ID
-        id = input("Ingrese el ID del estudiante que desea buscar: ")
-        estudiante = next((e for e in self.estudiantes if e.id == id), None)
-        if estudiante:
-            print(f"ID: {estudiante.id}, Nombre: {estudiante.nombre}, Promedio: {estudiante.calcular_promedio():.2f}")
-        else:
-            print("Estudiante no encontrado.")
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Buscar Estudiante")
+        ventana.geometry("340x200")
+        ventana.configure(bg="#f5f5f5")
+
+        tk.Label(ventana, text="ID del Estudiante:", font=("Arial", 11), bg="#f5f5f5").pack(pady=(15,2))
+        id_entry = tk.Entry(ventana, font=("Arial", 11))
+        id_entry.pack(pady=2)
+
+        result_label = tk.Label(ventana, text="", font=("Arial", 11), bg="#f5f5f5")
+        result_label.pack(pady=10)
+
+        def buscar():
+            id = id_entry.get()
+            estudiante = next((e for e in self.estudiantes if e.id == id), None)
+            if estudiante:
+                result_label.config(text=f"Nombre: {estudiante.nombre}\nPromedio: {estudiante.calcular_promedio():.2f}", fg="#333")
+            else:
+                result_label.config(text="Estudiante no encontrado.", fg="red")
+
+        tk.Button(ventana, text="Buscar", command=buscar, bg="#9C27B0", fg="white", font=("Arial", 11), width=12).pack(pady=5)
 
     def eliminar_estudiante(self):
-        # Elimina un estudiante de la lista por su ID
-        id = input("Ingrese el ID del estudiante a eliminar: ")
-        self.estudiantes = [est for est in self.estudiantes if est.id != id]
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Eliminar Estudiante")
+        ventana.geometry("340x180")
+        ventana.configure(bg="#f5f5f5")
+
+        tk.Label(ventana, text="ID del Estudiante a Eliminar:", font=("Arial", 11), bg="#f5f5f5").pack(pady=(20,2))
+        id_entry = tk.Entry(ventana, font=("Arial", 11))
+        id_entry.pack(pady=2)
+
+        def eliminar():
+            id = id_entry.get()
+            if any(est.id == id for est in self.estudiantes):
+                self.estudiantes = [est for est in self.estudiantes if est.id != id]
+                messagebox.showinfo("Éxito", "Estudiante eliminado correctamente.")
+                ventana.destroy()
+            else:
+                messagebox.showerror("Error", "Estudiante no encontrado.")
+
+        tk.Button(ventana, text="Eliminar", command=eliminar, bg="#F44336", fg="white", font=("Arial", 11), width=12).pack(pady=10)
 
     def mostrar_ficha_tecnica(self):
-        # Muestra información del sistema y del equipo desarrollador
-        print("Sistema de Gestión de Estudiantes")
-        print("Equipo: EvalTrack")
-        print("Desarrolladores: Daniel Gamboa, Maria Rincon, Sebastian Camejo, Luis Valencia")
-        print("Eslogan: 'Educación con Tecnología'")
+        messagebox.showinfo(
+            "Acerca de",
+            "Sistema de Gestión de Estudiantes\n"
+            "Equipo: EvalTrack\n"
+            "Desarrolladores: Daniel Gamboa, Maria Rincon, Sebastian Camejo, Luis Valencia\n"
+            "Eslogan: 'Educación con Tecnología'"
+        )
 
-
-# Función principal que muestra el menú y gestiona la interacción con el usuario
-# Se utiliza un bucle para mostrar las opciones y ejecutar la acción seleccionada
-# El usuario puede agregar, consultar, modificar o eliminar estudiantes, así como ver información del sistema
-
-def mostrar_menu():
-    gestor = GestorEstudiantes()
-    while True:
-        print("\nMenú de opciones:")
-        print("1. Agregar estudiante")
-        print("2. Ingresar calificaciones")
-        print("3. Actualizar calificaciones")
-        print("4. Consultar estudiantes y promedios")
-        print("5. Consultar un estudiante por ID")
-        print("6. Eliminar estudiante")
-        print("7. Acerca de")
-        print("8. Salir")
-
-        opcion = input("Seleccione una opción: ")
-
-        if opcion == "1":
-            gestor.agregar_estudiante()
-        elif opcion == "2":
-            gestor.ingresar_calificaciones()
-        elif opcion == "3":
-            gestor.actualizar_calificaciones()
-        elif opcion == "4":
-            gestor.consultar_estudiantes()
-        elif opcion == "5":
-            gestor.consultar_estudiante_por_id()
-        elif opcion == "6":
-            gestor.eliminar_estudiante()
-        elif opcion == "7":
-            gestor.mostrar_ficha_tecnica()
-        elif opcion == "8":
-            print("Saliendo del sistema...")
-            break
-        else:
-            print("Opción inválida, intente nuevamente.")
-
-
-# Ejecutar el programa principal
-mostrar_menu()
+# Ejecutar la aplicación gráfica
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = GestorEstudiantesGUI(root)
+    root.mainloop()

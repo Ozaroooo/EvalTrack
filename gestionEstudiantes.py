@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox, simpledialog
+import os
+import sys
 
 # Clase que representa a un estudiante con su ID, nombre y lista de calificaciones
 class Estudiante:
@@ -39,6 +41,7 @@ class GestorEstudiantesGUI:
         self.root.title("Sistema de Gestión de Estudiantes")
         self.root.geometry("540x520")
         self.root.configure(bg="#e3eafc")
+        # Eliminar conexión a base de datos, trabajar solo en memoria
 
         # Encabezado visual
         header_frame = tk.Frame(root, bg="#3f51b5", height=60)
@@ -75,6 +78,18 @@ class GestorEstudiantesGUI:
                                         font=("Arial", 10, "italic"), bg="#e3eafc", fg="gray")
         self.label_acerca.pack(side="bottom", pady=10)
 
+    def crear_tabla(self):
+        pass  # Ya no se usa base de datos
+
+    def cargar_estudiantes(self):
+        pass  # Ya no se usa base de datos
+
+    def guardar_en_db(self, estudiante):
+        pass  # Ya no se usa base de datos
+
+    def eliminar_de_db(self, id):
+        pass  # Ya no se usa base de datos
+
     def agregar_estudiante(self):
         ventana = tk.Toplevel(self.root)
         ventana.title("Agregar Estudiante")
@@ -92,8 +107,14 @@ class GestorEstudiantesGUI:
         def guardar():
             id = id_entry.get()
             nombre = nombre_entry.get()
+            # Verificar si el ID ya existe
+            if any(est.id == id for est in self.estudiantes):
+                messagebox.showerror("Error", "Ya existe un estudiante con ese ID.")
+                return
             if id and nombre:
-                self.estudiantes.append(Estudiante(id, nombre))
+                estudiante = Estudiante(id, nombre)
+                self.estudiantes.append(estudiante)
+                self.guardar_en_db(estudiante)
                 messagebox.showinfo("Éxito", "Estudiante agregado correctamente.")
                 ventana.destroy()
             else:
@@ -149,6 +170,7 @@ class GestorEstudiantesGUI:
                 return
             for cal in calificaciones:
                 estudiante.agregar_calificacion(cal)
+            self.guardar_en_db(estudiante)
             messagebox.showinfo("Éxito", "Calificaciones agregadas correctamente.")
             ventana.destroy()
 
@@ -204,6 +226,7 @@ class GestorEstudiantesGUI:
                 return
             for i, nueva in enumerate(nuevas):
                 estudiante.actualizar_calificacion(i, nueva)
+            self.guardar_en_db(estudiante)
             messagebox.showinfo("Éxito", "Calificaciones actualizadas correctamente.")
             ventana.destroy()
 
@@ -273,12 +296,16 @@ class GestorEstudiantesGUI:
             id = id_entry.get()
             if any(est.id == id for est in self.estudiantes):
                 self.estudiantes = [est for est in self.estudiantes if est.id != id]
+                self.eliminar_de_db(id)
                 messagebox.showinfo("Éxito", "Estudiante eliminado correctamente.")
                 ventana.destroy()
             else:
                 messagebox.showerror("Error", "Estudiante no encontrado.")
 
         tk.Button(ventana, text="Eliminar", command=eliminar, bg="#F44336", fg="white", font=("Arial", 11), width=12).pack(pady=10)
+
+    def __del__(self):
+        pass  # Ya no se usa base de datos
 
 # Ejecutar la aplicación gráfica
 if __name__ == "__main__":

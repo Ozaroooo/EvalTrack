@@ -15,6 +15,17 @@ EvalTrack nace como una solución práctica para docentes que necesitan registra
 - Exportación o respaldo de la información almacenada (opcional, si aplica).
 - Interfaz amigable y fácil de usar.
 
+## 📥 Cómo descargar EvalTrack
+
+Para descargar la aplicación:
+
+1. Accede al siguiente enlace:  
+   👉 **[Descargar EvalTrack desde MediaFire](https://www.mediafire.com/file/yos93v04ljmu2qv/EvalTrack.zip/file)**
+
+2. Descarga el archivo comprimido `.zip` y extráelo en tu computadora.
+3. Dentro de la carpeta extraída, ejecuta el archivo `EvalTrack.exe`.
+4. ¡Listo! No requiere instalación adicional.
+
 ## 🖥️ Requisitos del sistema
 
 - Sistema operativo: Windows 10 o superior.
@@ -23,10 +34,10 @@ EvalTrack nace como una solución práctica para docentes que necesitan registra
 
 ## 🚀 Cómo usar EvalTrack
 
-1. Descarga el archivo `EvalTrack.exe`.
-2. Haz doble clic sobre él para abrir la aplicación.
-3. Comienza a crear tus grupos, ingresar estudiantes y registrar sus calificaciones.
-4. EvalTrack calculará los promedios automáticamente y te permitirá hacer seguimiento del desempeño general.
+1. Abre `EvalTrack.exe`.
+2. Crea tus grupos o materias e ingresa los nombres de tus estudiantes.
+3. Registra las calificaciones por actividad o evaluación.
+4. Consulta los promedios automáticos y haz seguimiento del rendimiento académico.
 
 ## 👨‍🏫 Público objetivo
 

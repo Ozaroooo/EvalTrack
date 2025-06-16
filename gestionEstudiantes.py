@@ -45,6 +45,7 @@ class GestorEstudiantesGUI:
         self.root.geometry("540x520")
         self.root.configure(bg="#e3eafc")
         self.usuario_logueado = False
+        self.usuario_actual = None
         self.usuarios = self.cargar_usuarios()
         # Fondo con imagen
         if hasattr(sys, '_MEIPASS'):
@@ -155,6 +156,8 @@ class GestorEstudiantesGUI:
             password = password_entry.get()
             if usuario in self.usuarios and self.usuarios[usuario] == password:
                 self.usuario_logueado = True
+                self.usuario_actual = usuario  # Guardar usuario actual
+                self.cargar_desde_archivo()    # Cargar notas de ese usuario
                 self.habilitar_opciones(True)
                 self.btn_login.pack_forget()
                 self.btn_register.pack_forget()
@@ -194,6 +197,7 @@ class GestorEstudiantesGUI:
 
     def logout(self):
         self.usuario_logueado = False
+        self.usuario_actual = None
         self.habilitar_opciones(False)
         self.btn_logout.pack_forget()
         self.btn_login.pack(side="right", padx=5, pady=5)
@@ -221,6 +225,8 @@ class GestorEstudiantesGUI:
         pass  # Ya no se usa base de datos
 
     def guardar_en_archivo(self):
+        usuario = getattr(self, 'usuario_actual', None)
+        archivo = f"estudiantes_{usuario}.json" if usuario else "estudiantes.json"
         datos = [
             {
                 "id": est.id,
@@ -230,12 +236,14 @@ class GestorEstudiantesGUI:
             }
             for est in self.estudiantes
         ]
-        with open("estudiantes.json", "w", encoding="utf-8") as f:
+        with open(archivo, "w", encoding="utf-8") as f:
             json.dump(datos, f, ensure_ascii=False, indent=2)
 
     def cargar_desde_archivo(self):
+        usuario = getattr(self, 'usuario_actual', None)
+        archivo = f"estudiantes_{usuario}.json" if usuario else "estudiantes.json"
         try:
-            with open("estudiantes.json", "r", encoding="utf-8") as f:
+            with open(archivo, "r", encoding="utf-8") as f:
                 datos = json.load(f)
             self.estudiantes = [
                 Estudiante(d["id"], d["nombre"], d["cedula"])

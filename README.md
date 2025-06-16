@@ -32,6 +32,15 @@ EvalTrack nace como una solución práctica para docentes que necesitan registra
 
 Este programa está dirigido a **docentes universitarios** que desean una herramienta rápida y funcional para la gestión de calificaciones sin complicaciones.
 
+## 👥 Desarrolladores
+
+Este proyecto fue desarrollado por:
+
+- **Luis Valencia**
+- **Daniel Gamboa**
+- **María Rincón**
+- **Sebastián Camejo**
+
 ## 📂 Estado del proyecto
 
 EvalTrack se encuentra en una versión funcional básica. Se planea incluir futuras mejoras como gráficos de desempeño, generación de reportes PDF y sincronización en la nube.
@@ -41,4 +50,3 @@ EvalTrack se encuentra en una versión funcional básica. Se planea incluir futu
 Este es un proyecto de uso académico. Si deseas sugerir mejoras, no dudes en compartir tus ideas o comunicarte con el equipo desarrollador.
 
 ---
-

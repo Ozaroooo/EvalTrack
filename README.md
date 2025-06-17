@@ -60,4 +60,32 @@ EvalTrack se encuentra en una versión funcional básica. Se planea incluir futu
 
 Este es un proyecto de uso académico. Si deseas sugerir mejoras, no dudes en compartir tus ideas o comunicarte con el equipo desarrollador.
 
+### 📌 Cómo enviar un Pull Request
+
+Si quieres contribuir al desarrollo de EvalTrack, puedes hacerlo siguiendo estos pasos:
+
+1. Haz un **fork** de este repositorio.
+2. Clona tu fork a tu equipo local:
+   ```bash
+   git clone https://github.com/TU_USUARIO/EvalTrack.git
+   ```
+3. Crea una rama nueva para tus cambios:
+   ```bash
+   git checkout -b mejora/nombre-de-tu-cambio
+   ```
+4. Realiza tus modificaciones y guarda los cambios con mensajes de commit claros:
+   ```bash
+   git add .
+   git commit -m "Agrega: descripción corta de la mejora"
+   ```
+5. Sube tus cambios a tu fork:
+   ```bash
+   git push origin mejora/nombre-de-tu-cambio
+   ```
+6. Abre un **Pull Request** desde tu repositorio hacia el `main` de este repositorio original.
+
+No olvides incluir una descripción breve de lo que hiciste, por qué lo hiciste y cómo probarlo.
+
 ---
+
+¡Gracias por contribuir! Tu apoyo ayuda a que EvalTrack siga creciendo y mejorando. 🚀

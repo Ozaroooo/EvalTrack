@@ -17,14 +17,11 @@ EvalTrack nace como una solución práctica para docentes que necesitan registra
 
 ## 📥 Cómo descargar EvalTrack
 
-Para descargar la aplicación:
+Puedes descargar la última versión de EvalTrack directamente desde GitHub:
 
-1. Accede al siguiente enlace:  
-   👉 **[Descargar EvalTrack desde MediaFire](https://www.mediafire.com/file/yos93v04ljmu2qv/EvalTrack.zip/file)**
+   👉 **[Descargar EvalTrack desde MediaFire](https://github.com/Ozaroooo/EvalTrack/releases/download/v1.0/EvalTrack.exe)**
 
-2. Descarga el archivo comprimido `.zip` y extráelo en tu computadora.
-3. Dentro de la carpeta extraída, ejecuta el archivo `EvalTrack.exe`.
-4. ¡Listo! No requiere instalación adicional.
+> 🔒 Recomendamos mover el archivo `EvalTrack.exe` a una carpeta dedicada antes de ejecutarlo, ya que se generarán archivos `.json` que almacenan datos importantes del usuario.
 
 ## 🖥️ Requisitos del sistema
 

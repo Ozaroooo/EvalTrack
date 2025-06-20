@@ -28,7 +28,8 @@ Puedes descargar la última versión de EvalTrack directamente desde GitHub:
 
 Al ejecutar EvalTrack por primera vez, es posible que Windows muestre una advertencia como la siguiente:
 
-![Advertencia de Windows](windows_Warn.jpg)
+![windows_Warn](https://github.com/user-attachments/assets/55576d1c-7ff7-4526-b251-c27ee80d5b27)
+
 
 Esto sucede porque el archivo no está firmado digitalmente. Para continuar:
 
@@ -37,7 +38,8 @@ Esto sucede porque el archivo no está firmado digitalmente. Para continuar:
 
 Aquí puedes ver cómo se ve la segunda pantalla:
 
-![Más información SmartScreen](masinformacion_warn.jpg)
+![masinformacion_warn](https://github.com/user-attachments/assets/685f40f3-8ba4-4282-a7c5-e47af1f959f8)
+
 
 ## 🖥️ Requisitos del sistema
 

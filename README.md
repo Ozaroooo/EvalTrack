@@ -83,6 +83,18 @@ A continuación se describen brevemente las clases clave utilizadas en la aplica
 - **Métodos:**
   - `crear_materia(nombre)`: instancia una nueva materia.
   - `guardar_datos() / cargar_datos()`: métodos para manejo de archivos JSON.
+    
+## 🧪 Tecnologías utilizadas
+
+EvalTrack fue desarrollado utilizando las siguientes tecnologías:
+
+- **Python** – como lenguaje principal de programación.
+- **Tkinter** – para la interfaz gráfica de usuario (GUI).
+- **JSON** – para el almacenamiento local de los datos de estudiantes y calificaciones.
+- **OS / datetime** – módulos estándar de Python para gestión de archivos y fechas.
+
+Estas tecnologías permiten que la aplicación sea ligera, portable y fácil de ejecutar sin instalación adicional.
+
 
 ## 👨‍🏫 Público objetivo
 

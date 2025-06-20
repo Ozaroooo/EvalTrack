@@ -50,9 +50,11 @@ Aquí puedes ver cómo se ve la segunda pantalla:
 ## 🚀 Cómo usar EvalTrack
 
 1. Abre `EvalTrack.exe`.
-2. Crea tus grupos o materias e ingresa los nombres de tus estudiantes.
-3. Registra las calificaciones por actividad o evaluación.
-4. Consulta los promedios automáticos y haz seguimiento del rendimiento académico.
+2. Registrarte en la aplicacion colocando un usuario y contraseña.
+3. Inicia sesion con los mismos datos con los que te registraste.
+4. Crea tus grupos o materias e ingresa los nombres de tus estudiantes.
+5. Registra las calificaciones por actividad o evaluación.
+6. Consulta los promedios automáticos y haz seguimiento del rendimiento académico.
 
 ## 🧱 Estructura del código (Clases principales)
 

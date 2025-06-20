@@ -1,3 +1,4 @@
+
 # EvalTrack
 
 **EvalTrack** es una aplicación de escritorio desarrollada para facilitar el trabajo de profesores universitarios en el manejo de calificaciones y seguimiento académico de sus estudiantes.
@@ -23,6 +24,21 @@ Puedes descargar la última versión de EvalTrack directamente desde GitHub:
 
 > 🔒 Recomendamos mover el archivo `EvalTrack.exe` a una carpeta dedicada antes de ejecutarlo, ya que se generarán archivos `.json` que almacenan datos importantes del usuario.
 
+### ⚠️ Advertencia de Windows SmartScreen
+
+Al ejecutar EvalTrack por primera vez, es posible que Windows muestre una advertencia como la siguiente:
+
+![Advertencia de Windows](windows_Warn.jpg)
+
+Esto sucede porque el archivo no está firmado digitalmente. Para continuar:
+
+1. Haz clic en **"Más información"**.
+2. Luego haz clic en **"Ejecutar de todas formas"**.
+
+Aquí puedes ver cómo se ve la segunda pantalla:
+
+![Más información SmartScreen](masinformacion_warn.jpg)
+
 ## 🖥️ Requisitos del sistema
 
 - Sistema operativo: Windows 10 o superior.
@@ -35,6 +51,36 @@ Puedes descargar la última versión de EvalTrack directamente desde GitHub:
 2. Crea tus grupos o materias e ingresa los nombres de tus estudiantes.
 3. Registra las calificaciones por actividad o evaluación.
 4. Consulta los promedios automáticos y haz seguimiento del rendimiento académico.
+
+## 🧱 Estructura del código (Clases principales)
+
+A continuación se describen brevemente las clases clave utilizadas en la aplicación:
+
+### 📄 Clase `Estudiante`
+
+- **Atributos:**
+  - `nombre`: nombre completo del estudiante.
+  - `notas`: lista de calificaciones.
+- **Métodos:**
+  - `agregar_nota(nota)`: añade una nueva calificación.
+  - `calcular_promedio()`: retorna el promedio de las notas.
+
+### 📄 Clase `Materia`
+
+- **Atributos:**
+  - `nombre`: nombre de la materia o curso.
+  - `estudiantes`: lista de objetos tipo `Estudiante`.
+- **Métodos:**
+  - `agregar_estudiante(estudiante)`: agrega un nuevo estudiante.
+  - `obtener_promedios()`: devuelve un resumen de promedios por estudiante.
+
+### 📄 Clase `EvalTrackApp`
+
+- **Atributos:**
+  - `materias`: lista de materias creadas por el usuario.
+- **Métodos:**
+  - `crear_materia(nombre)`: instancia una nueva materia.
+  - `guardar_datos() / cargar_datos()`: métodos para manejo de archivos JSON.
 
 ## 👨‍🏫 Público objetivo
 
